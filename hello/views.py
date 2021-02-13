@@ -4,9 +4,17 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from hello.forms import LogMessageForm
 from hello.models import LogMessage
+from django.views.generic import ListView
 
-def home(request):
-    return render(request, "hello/home.html")
+#def home(request):
+#    return render(request, "hello/home.html")
+class HomeListView(ListView):
+    """Отрисовывает домушнюю страницу со списком всех сообщений"""
+    model = LogMessage
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeListView, self).get_context_data(**kwargs)
+        return context
 
 def about(request):
     return render(request, "hello/about.html")

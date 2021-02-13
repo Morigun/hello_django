@@ -3,5 +3,30 @@
 Домашняя страница
 {% endblock %}
 {% block content %}
-<p>Домашняя страница для the Visual Studio Code Django тестового проекта.</p>
+    <h2>Записанные сообщения</h2>
+
+    {% if message_list %}
+        <table class="message_list">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Сообщение</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for message in message_list %}
+                <tr>
+                    <td>{{ message.log_date | date:'d M Y' }}</td>
+                    <td>{{ message.log_date | time:'H:i:s' }}</td>
+                    <td>
+                        {{ message.message }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет записанных сообщений. Используйте <a href="{% url 'log' %}">Журнал сообщений</a>.</p>
+    {% endif %}
 {% endblock %}
